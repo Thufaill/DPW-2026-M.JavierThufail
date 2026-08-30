@@ -11,7 +11,7 @@ Untuk memperdalam pemahaman, coba lakukan sendiri (tidak wajib, tapi sangat disa
     <li><a href="Anggota/tambah.html">Tambah Anggota</a></li>
 ```
 Outputnya:  
-![alt text](Foto/L1.png)  
+![alt text](img/L1.png)  
 
 2. Tambah 2 baris data buku baru di buku/list.html dengan meng-copy satu blok ``<tr>...</tr>`` lalu mengganti isinya.  
 **Jawaban:**
@@ -38,7 +38,7 @@ Outputnya:
      </tr>
 ```
 Outputnya:  
-![alt text](Foto/L2.png)  
+![alt text](img/L2.png)  
 
 3. Tambah kolom baru di tabel anggota, misalnya "Tanggal Bergabung", lengkap dengan <th> dan <td>-nya di setiap baris.  
 **Jawaban:**
@@ -67,7 +67,7 @@ Outputnya:
 
 ```
 Outputnya:  
-![alt text](Foto/L3.png)  
+![alt text](img/L3.png)  
 
 4. Tambah field baru di form tambah anggota, misalnya "Email" memakai ``` <input type="email"> ``` (type="email" otomatis memvalidasi format alamat email tanpa perlu JavaScript tambahan).  
 **Jawaban:**
@@ -78,4 +78,4 @@ Outputnya:
     </p>
 ```
 Outputnya:  
-![alt text](Foto/L4.png)
+![alt text](img/L4.png)
