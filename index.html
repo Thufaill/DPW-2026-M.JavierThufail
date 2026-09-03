@@ -28,7 +28,7 @@
 
         .container {
             width: 100%;
-            max-width: 650px;
+            max-width: 680px;
             background: rgba(15, 23, 42, 0.75);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
@@ -38,13 +38,13 @@
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
 
-        /* --- STYLING PROFILE HERO SECTION --- */
+        /* --- KARTU PROFIL HASIL DESAIN --- */
         .profile-hero {
             position: relative;
             background: linear-gradient(135deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.8) 100%);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 20px;
-            padding: 1.75rem;
+            padding: 1.5rem 1.75rem;
             margin-bottom: 2rem;
             overflow: hidden;
             display: flex;
@@ -52,7 +52,6 @@
             gap: 1.25rem;
         }
 
-        /* Ambient Glow di belakang kartu profil */
         .profile-hero::before {
             content: '';
             position: absolute;
@@ -85,7 +84,7 @@
         }
 
         .profile-name {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             font-weight: 700;
             color: #ffffff;
             letter-spacing: -0.02em;
@@ -119,7 +118,7 @@
         }
 
         .info-label {
-            font-size: 0.7rem;
+            font-size: 0.68rem;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             color: #64748b;
@@ -146,17 +145,36 @@
         .jobsheet-list {
             list-style: none;
             display: grid;
-            gap: 12px;
+            gap: 10px;
+            max-height: 520px;
+            overflow-y: auto;
+            padding-right: 6px;
+        }
+
+        /* Custom Scrollbar */
+        .jobsheet-list::-webkit-scrollbar {
+            width: 6px;
+        }
+        .jobsheet-list::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+        }
+        .jobsheet-list::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+        }
+        .jobsheet-list::-webkit-scrollbar-thumb:hover {
+            background: rgba(56, 189, 248, 0.4);
         }
 
         .jobsheet-item a {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 1rem 1.25rem;
+            padding: 0.9rem 1.2rem;
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 16px;
+            border-radius: 14px;
             text-decoration: none;
             transition: all 0.25s ease;
         }
@@ -164,13 +182,13 @@
         .jobsheet-info {
             display: flex;
             flex-direction: column;
-            gap: 3px;
+            gap: 2px;
         }
 
         .jobsheet-title {
             color: #f1f5f9;
             font-weight: 600;
-            font-size: 0.98rem;
+            font-size: 0.95rem;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -186,8 +204,10 @@
             background: rgba(56, 189, 248, 0.1);
             color: #38bdf8;
             border-radius: 6px;
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             font-weight: 700;
+            min-width: 26px;
+            text-align: center;
         }
 
         .jobsheet-item a:hover {
@@ -226,7 +246,7 @@
 <body>
 
     <main class="container">
-        <!-- Profile Hero Section -->
+        <!-- Profile Section -->
         <div class="profile-hero">
             <div class="avatar">JT</div>
             <div class="profile-details">
@@ -253,7 +273,7 @@
 
         <div class="section-title">Daftar Jobsheet</div>
 
-        <!-- List Jobsheet -->
+        <!-- List Jobsheet 01 - 13 -->
         <ul class="jobsheet-list">
             <li class="jobsheet-item">
                 <a href="Jobsheet-01/index.html">
@@ -287,6 +307,87 @@
                     <div class="jobsheet-info">
                         <span class="jobsheet-title"><span class="badge">04</span>Jobsheet 04</span>
                         <span class="jobsheet-desc">UI/UX Design</span>
+                    </div>
+                    <span class="arrow-icon">→</span>
+                </a>
+            </li>
+            <li class="jobsheet-item">
+                <a href="Jobsheet-05/index.html">
+                    <div class="jobsheet-info">
+                        <span class="jobsheet-title"><span class="badge">05</span>Jobsheet 05</span>
+                        <span class="jobsheet-desc">JavaScript DOM & Event</span>
+                    </div>
+                    <span class="arrow-icon">→</span>
+                </a>
+            </li>
+            <li class="jobsheet-item">
+                <a href="Jobsheet-06/index.html">
+                    <div class="jobsheet-info">
+                        <span class="jobsheet-title"><span class="badge">06</span>Jobsheet 06</span>
+                        <span class="jobsheet-desc">Fetch API & JSON</span>
+                    </div>
+                    <span class="arrow-icon">→</span>
+                </a>
+            </li>
+            <li class="jobsheet-item">
+                <a href="Jobsheet-07/index.html">
+                    <div class="jobsheet-info">
+                        <span class="jobsheet-title"><span class="badge">07</span>Jobsheet 07</span>
+                        <span class="jobsheet-desc">PHP Dasar & Form Handling</span>
+                    </div>
+                    <span class="arrow-icon">→</span>
+                </a>
+            </li>
+            <li class="jobsheet-item">
+                <a href="Jobsheet-08/index.html">
+                    <div class="jobsheet-info">
+                        <span class="jobsheet-title"><span class="badge">08</span>Jobsheet 08</span>
+                        <span class="jobsheet-desc">Koneksi PostgreSQL</span>
+                    </div>
+                    <span class="arrow-icon">→</span>
+                </a>
+            </li>
+            <li class="jobsheet-item">
+                <a href="Jobsheet-09/index.html">
+                    <div class="jobsheet-info">
+                        <span class="jobsheet-title"><span class="badge">09</span>Jobsheet 09</span>
+                        <span class="jobsheet-desc">CRUD Penuh</span>
+                    </div>
+                    <span class="arrow-icon">→</span>
+                </a>
+            </li>
+            <li class="jobsheet-item">
+                <a href="Jobsheet-10/index.html">
+                    <div class="jobsheet-info">
+                        <span class="jobsheet-title"><span class="badge">10</span>Jobsheet 10</span>
+                        <span class="jobsheet-desc">Autentikasi & Manajemen Sesi</span>
+                    </div>
+                    <span class="arrow-icon">→</span>
+                </a>
+            </li>
+            <li class="jobsheet-item">
+                <a href="Jobsheet-11/index.html">
+                    <div class="jobsheet-info">
+                        <span class="jobsheet-title"><span class="badge">11</span>Jobsheet 11</span>
+                        <span class="jobsheet-desc">Keamanan Web Dasar</span>
+                    </div>
+                    <span class="arrow-icon">→</span>
+                </a>
+            </li>
+            <li class="jobsheet-item">
+                <a href="Jobsheet-12/index.html">
+                    <div class="jobsheet-info">
+                        <span class="jobsheet-title"><span class="badge">12</span>Jobsheet 12</span>
+                        <span class="jobsheet-desc">Integrasi Modul Peminjaman</span>
+                    </div>
+                    <span class="arrow-icon">→</span>
+                </a>
+            </li>
+            <li class="jobsheet-item">
+                <a href="Jobsheet-13/index.html">
+                    <div class="jobsheet-info">
+                        <span class="jobsheet-title"><span class="badge">13</span>Jobsheet 13</span>
+                        <span class="jobsheet-desc">Deployment & Dokumentasi (SIMPUS-Mini)</span>
                     </div>
                     <span class="arrow-icon">→</span>
                 </a>
