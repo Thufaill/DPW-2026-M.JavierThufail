@@ -30,24 +30,14 @@
       .table-responsive,
       .code-responsive,
       pre {
-          overflow-x: auto;
-          max-width: 100%;
-      }
-
-      /* Styling agar tampilan blok kode <pre> lebih rapi */
-      pre {
-          background-color: #282c34;
-          color: #abb2bf;
-          padding: 1rem;
-          border-radius: 6px;
-          font-family: "Consolas", "Courier New", monospace;
-          font-size: 0.9rem;
-          line-height: 1.4;
+      overflow-x: auto;
+      max-width: 100%;
+      display: block;
       }
 
       pre code {
-          white-space: pre; /* Menjaga agar teks kode tidak terpotong ke bawah */
-      }
+      white-space: pre; /* Menjaga agar teks kode tidak terpotong ke bawah */
+}
    ```
 4. **Ubah posisi ikon hamburger** — misalnya pindahkan `.nav-toggle-label`
    ke urutan terakhir di `<header>` (setelah `<nav>`) lalu amati apakah
