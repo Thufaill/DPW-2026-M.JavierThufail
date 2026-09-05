@@ -202,17 +202,7 @@ footer {
 pre {
     overflow-x: auto;
     max-width: 100%;
-}
-
-/* Styling agar tampilan blok kode <pre> lebih rapi */
-pre {
-    background-color: #282c34;
-    color: #abb2bf;
-    padding: 1rem;
-    border-radius: 6px;
-    font-family: "Consolas", "Courier New", monospace;
-    font-size: 0.9rem;
-    line-height: 1.4;
+    display: block;
 }
 
 pre code {
