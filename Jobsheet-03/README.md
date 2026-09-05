@@ -26,19 +26,19 @@
    melebar di layar sempit, misalnya kalau suatu saat kamu menambahkan
    blok kode `<pre>` yang panjang di salah satu halaman.
    **Jawaban:**
-   ```bash
-      .table-responsive,
-      .code-responsive,
-      pre {
-      overflow-x: auto;
-      max-width: 100%;
-      display: block;
-      }
+    ```bash
+        .table-responsive,
+        .code-responsive,
+        pre {
+        overflow-x: auto;
+        max-width: 100%;
+        display: block;
+        }
 
-      pre code {
-      white-space: pre; /* Menjaga agar teks kode tidak terpotong ke bawah */
-}
-   ```
+        pre code {
+        white-space: pre; /* Menjaga agar teks kode tidak terpotong ke bawah */
+        }
+    ```
 4. **Ubah posisi ikon hamburger** — misalnya pindahkan `.nav-toggle-label`
    ke urutan terakhir di `<header>` (setelah `<nav>`) lalu amati apakah
    sibling combinator `.nav-toggle:checked ~ nav` di
