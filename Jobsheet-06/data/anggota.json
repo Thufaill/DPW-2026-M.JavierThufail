@@ -1,7 +1,7 @@
 [
-    { "no_anggota": "A001", "nama": "Javier Thufail", "alamat": "Bima", "no_hp": "0811xxxx" },
-    { "no_anggota": "A002", "nama": "Siti Aminah", "alamat": "Malang", "no_hp": "0812xxxx" },
-    { "no_anggota": "A003", "nama": "Budi Santoso", "alamat": "Batu", "no_hp": "0813xxxx" },
-    { "no_anggota": "A004", "nama": "Dewi Lestari", "alamat": "Malang", "no_hp": "0814xxxx" },
-    { "no_anggota": "A005", "nama": "Rizky Firmansyah", "alamat": "Lawang", "no_hp": "0815xxxx" }
+    { "no_anggota": "A001", "nama": "Javier Thufail", "alamat": "Bima", "umur": "19", "no_hp": "0811xxxx" },
+    { "no_anggota": "A002", "nama": "Siti Aminah", "alamat": "Malang", "umur": "20", "no_hp": "0812xxxx" },
+    { "no_anggota": "A003", "nama": "Budi Santoso", "alamat": "Batu", "umur": "18", "no_hp": "0813xxxx" },
+    { "no_anggota": "A004", "nama": "Dewi Lestari", "alamat": "Malang", "umur": "21", "no_hp": "0814xxxx" },
+    { "no_anggota": "A005", "nama": "Rizky Firmansyah", "alamat": "Lawang", "umur": "19", "no_hp": "0815xxxx" }
 ]
