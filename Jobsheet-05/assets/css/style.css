@@ -1,0 +1,487 @@
+/* ===== Reset & Base ===== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #334155;
+    background-color: #eef2f3;
+    line-height: 1.5;
+}
+
+a {
+    color: #0f766e;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* ===== Header & Navbar (Flexbox) ===== */
+header {
+    background: #112a29;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    color: #fff;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+header h1 {
+    font-size: 1.4rem;
+    color: #f1f5f4;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+}
+
+header nav a {
+    color: #d5e5e2;
+    font-size: 0.88rem;
+    font-weight: 500;
+    white-space: nowrap;
+    padding: 0.35rem 0.65rem;
+    border-radius: 6px;
+    display: inline-block;
+    opacity: 0.85;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+header nav a:hover {
+    opacity: 1;
+    background-color: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    text-decoration: none;
+    transform: translateY(-1px);
+}
+
+header nav a.active,
+header nav a[aria-current="page"] {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    font-weight: 600;
+    box-shadow: inset 0 -2px 0 #8fd3c7;
+}
+
+/* Tombol Hamburger */
+.nav-toggle-label {
+    display: none;
+    font-size: 1.6rem;
+    color: #fff;
+    background: none;
+    border: none;
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.2s ease;
+}
+
+.nav-toggle-label:hover {
+    color: #8fd3c7;
+    transform: scale(1.1);
+}
+
+.nav-toggle-label:active {
+    transform: scale(0.9);
+}
+
+/* ===== Main Layout ===== */
+main {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+}
+
+section {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 8px 24px rgba(24, 59, 58, 0.05);
+    border: 1px solid #e1ece9;
+    transition: box-shadow 0.3s ease;
+}
+
+section h2 {
+    margin-bottom: 1rem;
+    color: #245e5a;
+}
+
+/* Banner Hero Pertama */
+main section:first-of-type {
+    background: linear-gradient(135deg, #ffffff 0%, #f4f8f7 100%);
+    border-left: 5px solid #245e5a;
+    padding: 1.75rem 2rem;
+}
+
+main section:first-of-type h2 {
+    font-size: 1.5rem;
+    letter-spacing: -0.3px;
+}
+
+/* ===== Kartu Statistik (CSS Grid) ===== */
+main section:nth-of-type(2) {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+main section:nth-of-type(2) h2 {
+    grid-column: 1 / -1;
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+main section:nth-of-type(2) article {
+    background: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #e5eceb;
+    border-top: 4px solid #245e5a;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+main section:nth-of-type(2) article:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(24, 59, 58, 0.12);
+    border-top-color: #176b63;
+}
+
+main section:nth-of-type(2) article h3 {
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    letter-spacing: 1px;
+    font-weight: 700;
+    color: #64748b;
+    margin-bottom: 0.4rem;
+}
+
+main section:nth-of-type(2) article p {
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: #183b3a;
+    letter-spacing: -1px;
+}
+
+/* ===== Tabel ===== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #e1ece9;
+    border-spacing: 0;
+}
+
+thead {
+    background-color: #1c4946;
+    color: #fff;
+}
+
+thead th {
+    padding: 0.85rem 1rem;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.8px;
+    font-weight: 600;
+    text-align: left;
+}
+
+tbody td {
+    padding: 0.85rem 1rem;
+    color: #334155;
+    vertical-align: middle;
+    white-space: nowrap;
+    border-bottom: 1px solid #dce5e4;
+}
+
+tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f3f6f6;
+}
+
+tbody tr:hover {
+    background-color: #f0f7f5;
+}
+
+/* Kolom & Tombol Aksi */
+th:last-child,
+td:last-child {
+    width: 1%;
+    white-space: nowrap;
+    text-align: center;
+}
+
+td:last-child {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.35rem;
+    border-bottom: none;
+}
+
+td button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.35rem 0.65rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+}
+
+td button:first-of-type {
+    background-color: #245e5a;
+    color: #ffffff;
+}
+
+td button:first-of-type:hover {
+    background-color: #183b3a;
+    transform: translateY(-1px);
+}
+
+td button:nth-of-type(2) {
+    background-color: #e5f0ee;
+    color: #183b3a;
+    border: 1px solid #bcd4d0;
+}
+
+td button:nth-of-type(2):hover {
+    background-color: #d1e4e0;
+    transform: translateY(-1px);
+}
+
+td button:last-of-type {
+    background-color: #fff1f1;
+    color: #a72828;
+    border: 1px solid #f8c4c4;
+}
+
+td button:last-of-type:hover {
+    background-color: #a72828;
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+/* ===== Form Input ===== */
+form p {
+    margin-bottom: 1rem;
+}
+
+form label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.3px;
+    color: #245e5a;
+}
+
+.search-box input,
+form input, 
+form select {
+    width: 100%;
+    max-width: 400px;
+    padding: 0.65rem 0.85rem;
+    background-color: #f8faf9;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #334155;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.search-box input:hover,
+form input:hover,
+form select:hover {
+    border-color: #9cb8b4;
+}
+
+.search-box input:focus,
+form input:focus,
+form select:focus {
+    outline: none;
+    background-color: #ffffff;
+    border-color: #245e5a;
+    box-shadow: 0 0 0 4px rgba(36, 94, 90, 0.15);
+}
+
+form button[type="submit"] {
+    background-color: #245e5a;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.4px;
+    padding: 0.7rem 1.8rem;
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 4px 12px rgba(36, 94, 90, 0.2);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 0.5rem;
+}
+
+form button[type="submit"]:hover {
+    background-color: #183b3a;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(36, 94, 90, 0.3);
+}
+
+form button[type="submit"]:active,
+button:active {
+    transform: scale(0.96) !important;
+}
+
+/* ===== Pesan Error Validasi ===== */
+.error {
+    display: block;
+    color: #d9534f;
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+}
+
+/* ===== Kolom Pencarian ===== */
+.search-box {
+    margin-bottom: 1rem;
+}
+
+.search-box input {
+    max-width: 320px;
+}
+
+/* ===== Footer ===== */
+footer {
+    text-align: center;
+    padding: 1.25rem;
+    color: #687876;
+    font-size: 0.9rem;
+}
+
+/* ===== Elemen Responsif ===== */
+.table-responsive,
+.code-responsive,
+pre {
+    overflow-x: auto;
+    max-width: 100%;
+    display: block;
+}
+
+pre code {
+    white-space: pre; 
+}
+
+/* ===== Scrollbar Modern ===== */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #eef2f3;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #a3bfbb;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #245e5a;
+}
+
+/* ===== Responsive Breakpoints & Nav Animation ===== */
+@media (min-width: 1400px) {
+    main {
+        max-width: 1000px;
+    }
+}
+
+@media (max-width: 900px) and (min-width: 481px) {
+    header { padding: 0.8rem 1rem; }
+    header nav ul { gap: 0.3rem; }
+    header nav a { font-size: 0.8rem; padding: 0.3rem 0.45rem; }
+    main section:nth-of-type(2) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Mobile Screen */
+@media (max-width: 480px) {
+    header {
+        position: relative;
+    }
+
+    .nav-toggle-label {
+        display: block;
+    }
+
+    /* Base Nav Mobile (Saat Tertutup) */
+    header nav {
+        display: block;
+        width: 100%;
+        order: 3;
+        margin-top: 0;
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        background: #183b3a;
+        border-radius: 8px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        /* Transisi dua arah (Buka & Tutup) */
+        transition: max-height 0.35s ease-in-out, opacity 0.3s ease-in-out, margin-top 0.35s ease-in-out, padding 0.35s ease-in-out;
+    }
+
+    /* State Nav Mobile (Saat Terbuka via JS toggle .nav-open) */
+    header nav.nav-open {
+        max-height: 300px;
+        opacity: 1;
+        margin-top: 1rem;
+        padding: 0.75rem;
+    }
+
+    header nav ul {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    main section:nth-of-type(2) {
+        grid-template-columns: 1fr;
+    }
+
+    form input,
+    form select {
+        max-width: 100%;
+    }
+}
+
+.table-counter {
+    font-size: 0.9rem;
+    color: #526866;
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+}
