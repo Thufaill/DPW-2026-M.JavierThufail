@@ -18,6 +18,62 @@ function updateTableCounter() {
     counterEl.textContent = `Menampilkan ${visibleCount} dari ${totalBuku} buku`;
 }
 
+// Fungsi generik untuk memuat data tabel dari JSON
+async function muatDataTabel(namaFile, kunciKolom) {
+    const tbody = document.querySelector(".table-responsive table tbody");
+    const loading = document.getElementById("loading-indicator");
+    if (!tbody) return;
+
+    loading.style.display = "block";
+    tbody.innerHTML = ""; // Mengosongkan tbody terlebih dahulu
+
+    try {
+        // Simulasi delay jaringan agar loading indicator terlihat
+        await new Promise((resolve) => setTimeout(resolve, 300));
+
+        const res = await fetch(`../data/${namaFile}`);
+        if (!res.ok) {
+            throw new Error("Gagal mengambil data (status " + res.status + ")");
+        }
+        const dataList = await res.json();
+
+        dataList.forEach(function (item) {
+            const tr = document.createElement("tr");
+            
+            // Generate sel td berdasarkan urutan kunciKolom yang diminta
+            let tdHtml = kunciKolom
+                .map((kunci) => `<td>${item[kunci] ?? "-"}</td>`)
+                .join("");
+
+            // Tambahkan kolom tombol Aksi di akhir
+            tdHtml += `
+                <td>
+                    <button type="button">Edit</button> 
+                    <button type="button" class="btn-hapus">Hapus</button>
+                </td>
+            `;
+
+            tr.innerHTML = tdHtml;
+            tbody.appendChild(tr);
+        });
+
+        // Re-bind konfirmasi hapus untuk baris baru
+        if (typeof initHapusConfirm === "function") {
+            initHapusConfirm();
+        }
+    } catch (err) {
+        const totalKolom = kunciKolom.length + 1;
+        tbody.innerHTML = `<tr><td colspan="${totalKolom}">Gagal memuat data: ${err.message}</td></tr>`;
+    } finally {
+        loading.style.display = "none";
+        
+        // Update counter tabel jika fungsi tersedia
+        if (typeof updateTableCounter === "function") {
+            updateTableCounter();
+        }
+    }
+}
+
 // ===== Hamburger menu (JS-driven, menggantikan checkbox hack) =====
 function initNavToggle() {
     const toggleBtn = document.getElementById("nav-toggle-btn");
@@ -29,17 +85,30 @@ function initNavToggle() {
     });
 }
 
-// ===== Konfirmasi hapus (front-end only, belum ke server) =====
+// ===== Konfirmasi hapus (Event Delegation di tingkat document) =====
 function initHapusConfirm() {
-    document.querySelectorAll(".btn-hapus").forEach(function (btn) {
-        btn.addEventListener("click", function () {
-            const row = btn.closest("tr");
+    document.addEventListener("click", function (e) {
+        // 1. Cetak elemen persis yang diklik oleh user
+        console.log("Elemen yang diklik (e.target):", e.target);
+
+        // 2. Saring hanya jika yang diklik (atau elemen di dalamnya) adalah tombol .btn-hapus
+        const btnHapus = e.target.closest(".btn-hapus");
+
+        if (btnHapus) {
+            console.log("--> Event tersaring! Tombol Hapus terdeteksi.");
+            
+            const row = btnHapus.closest("tr");
             const nama = row ? row.querySelector("td")?.textContent : "data ini";
-            const yakin = confirm("Yakin ingin menghapus \"" + nama + "\"?");
+            const yakin = confirm('Yakin ingin menghapus "' + nama + '"?');
+            
             if (yakin && row) {
                 row.remove();
+                // Update counter setelah baris dihapus
+                if (typeof updateTableCounter === "function") {
+                    updateTableCounter();
+                }
             }
-        });
+        }
     });
 }
 

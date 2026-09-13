@@ -485,3 +485,49 @@ pre code {
     margin-bottom: 0.75rem;
     font-weight: 500;
 }
+
+/* Styling kontainer pencarian agar input dan tombol sejajar */
+.search-box {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: flex-end;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.search-box > div {
+    display: flex;
+    flex-direction: column;
+}
+
+.search-box input {
+    max-width: 320px;
+}
+
+/* Styling Tombol Muat Ulang */
+.btn-reload {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    background-color: #245e5a;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 0.65rem 1.2rem;
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 2px 6px rgba(36, 94, 90, 0.2);
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-reload:hover {
+    background-color: #183b3a;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(36, 94, 90, 0.3);
+}
+
+.btn-reload:active {
+    transform: scale(0.96);
+}
