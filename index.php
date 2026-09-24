@@ -1,3 +1,30 @@
+<?php
+// Data Mahasiswa
+$profile = [
+    'nama' => 'M. Javier Thufail',
+    'nim'  => '254107020019',
+    'kelas' => 'TI-2D',
+    'absen' => '18',
+    'initials' => 'JT'
+];
+
+// Data List Jobsheet
+$jobsheets = [
+    ['no' => '01', 'title' => 'Jobsheet 01', 'desc' => 'HTML5 Semantic Skeleton', 'url' => 'Jobsheet-01/index.html'],
+    ['no' => '02', 'title' => 'Jobsheet 02', 'desc' => 'CSS3 Styling Dasar', 'url' => 'Jobsheet-02/index.html'],
+    ['no' => '03', 'title' => 'Jobsheet 03', 'desc' => 'Responsive Design', 'url' => 'Jobsheet-03/index.html'],
+    ['no' => '04', 'title' => 'Jobsheet 04', 'desc' => 'UI/UX Design', 'url' => 'Jobsheet-04/index.html'],
+    ['no' => '05', 'title' => 'Jobsheet 05', 'desc' => 'JavaScript DOM & Event', 'url' => 'Jobsheet-05/index.html'],
+    ['no' => '06', 'title' => 'Jobsheet 06', 'desc' => 'Fetch API & JSON', 'url' => 'Jobsheet-06/index.html'],
+    ['no' => '07', 'title' => 'Jobsheet 07', 'desc' => 'PHP Dasar & Form Handling', 'url' => 'Jobsheet-07/index.php'],
+    ['no' => '08', 'title' => 'Jobsheet 08', 'desc' => 'Koneksi PostgreSQL', 'url' => 'Jobsheet-08/index.php'],
+    ['no' => '09', 'title' => 'Jobsheet 09', 'desc' => 'CRUD Penuh', 'url' => 'Jobsheet-09/index.html'],
+    ['no' => '10', 'title' => 'Jobsheet 10', 'desc' => 'Autentikasi & Manajemen Sesi', 'url' => 'Jobsheet-10/index.html'],
+    ['no' => '11', 'title' => 'Jobsheet 11', 'desc' => 'Keamanan Web Dasar', 'url' => 'Jobsheet-11/index.html'],
+    ['no' => '12', 'title' => 'Jobsheet 12', 'desc' => 'Integrasi Modul Peminjaman', 'url' => 'Jobsheet-12/index.html'],
+    ['no' => '13', 'title' => 'Jobsheet 13', 'desc' => 'Deployment & Dokumentasi (SIMPUS-Mini)', 'url' => 'Jobsheet-13/index.html'],
+];
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -248,24 +275,24 @@
     <main class="container">
         <!-- Profile Section -->
         <div class="profile-hero">
-            <div class="avatar">JT</div>
+            <div class="avatar"><?= htmlspecialchars($profile['initials']) ?></div>
             <div class="profile-details">
                 <div class="profile-name">
-                    M. Javier Thufail
+                    <?= htmlspecialchars($profile['nama']) ?>
                     <span class="status-dot" title="Aktif"></span>
                 </div>
                 <div class="profile-grid">
                     <div class="info-pill">
                         <span class="info-label">NIM</span>
-                        <span class="info-value">254107020019</span>
+                        <span class="info-value"><?= htmlspecialchars($profile['nim']) ?></span>
                     </div>
                     <div class="info-pill">
                         <span class="info-label">Kelas</span>
-                        <span class="info-value">TI-2D</span>
+                        <span class="info-value"><?= htmlspecialchars($profile['kelas']) ?></span>
                     </div>
                     <div class="info-pill">
                         <span class="info-label">Absen</span>
-                        <span class="info-value">18</span>
+                        <span class="info-value"><?= htmlspecialchars($profile['absen']) ?></span>
                     </div>
                 </div>
             </div>
@@ -274,123 +301,20 @@
         <div class="section-title">Daftar Jobsheet Desain & Pemograman Web</div>
 
         <ul class="jobsheet-list">
-            <li class="jobsheet-item">
-                <a href="Jobsheet-01/index.html">
-                    <div class="jobsheet-info">
-                        <span class="jobsheet-title"><span class="badge">01</span>Jobsheet 01</span>
-                        <span class="jobsheet-desc">HTML5 Semantic Skeleton</span>
-                    </div>
-                    <span class="arrow-icon">→</span>
-                </a>
-            </li>
-            <li class="jobsheet-item">
-                <a href="Jobsheet-02/index.html">
-                    <div class="jobsheet-info">
-                        <span class="jobsheet-title"><span class="badge">02</span>Jobsheet 02</span>
-                        <span class="jobsheet-desc">CSS3 Styling Dasar</span>
-                    </div>
-                    <span class="arrow-icon">→</span>
-                </a>
-            </li>
-            <li class="jobsheet-item">
-                <a href="Jobsheet-03/index.html">
-                    <div class="jobsheet-info">
-                        <span class="jobsheet-title"><span class="badge">03</span>Jobsheet 03</span>
-                        <span class="jobsheet-desc">Responsive Design</span>
-                    </div>
-                    <span class="arrow-icon">→</span>
-                </a>
-            </li>
-            <li class="jobsheet-item">
-                <a href="Jobsheet-04/index.html">
-                    <div class="jobsheet-info">
-                        <span class="jobsheet-title"><span class="badge">04</span>Jobsheet 04</span>
-                        <span class="jobsheet-desc">UI/UX Design</span>
-                    </div>
-                    <span class="arrow-icon">→</span>
-                </a>
-            </li>
-            <li class="jobsheet-item">
-                <a href="Jobsheet-05/index.html">
-                    <div class="jobsheet-info">
-                        <span class="jobsheet-title"><span class="badge">05</span>Jobsheet 05</span>
-                        <span class="jobsheet-desc">JavaScript DOM & Event</span>
-                    </div>
-                    <span class="arrow-icon">→</span>
-                </a>
-            </li>
-            <li class="jobsheet-item">
-                <a href="Jobsheet-06/index.html">
-                    <div class="jobsheet-info">
-                        <span class="jobsheet-title"><span class="badge">06</span>Jobsheet 06</span>
-                        <span class="jobsheet-desc">Fetch API & JSON</span>
-                    </div>
-                    <span class="arrow-icon">→</span>
-                </a>
-            </li>
-            <li class="jobsheet-item">
-                <a href="Jobsheet-07/index.php">
-                    <div class="jobsheet-info">
-                        <span class="jobsheet-title"><span class="badge">07</span>Jobsheet 07</span>
-                        <span class="jobsheet-desc">PHP Dasar & Form Handling</span>
-                    </div>
-                    <span class="arrow-icon">→</span>
-                </a>
-            </li>
-            <li class="jobsheet-item">
-                <a href="Jobsheet-08/index.php">
-                    <div class="jobsheet-info">
-                        <span class="jobsheet-title"><span class="badge">08</span>Jobsheet 08</span>
-                        <span class="jobsheet-desc">Koneksi PostgreSQL</span>
-                    </div>
-                    <span class="arrow-icon">→</span>
-                </a>
-            </li>
-            <li class="jobsheet-item">
-                <a href="Jobsheet-09/index.html">
-                    <div class="jobsheet-info">
-                        <span class="jobsheet-title"><span class="badge">09</span>Jobsheet 09</span>
-                        <span class="jobsheet-desc">CRUD Penuh</span>
-                    </div>
-                    <span class="arrow-icon">→</span>
-                </a>
-            </li>
-            <li class="jobsheet-item">
-                <a href="Jobsheet-10/index.html">
-                    <div class="jobsheet-info">
-                        <span class="jobsheet-title"><span class="badge">10</span>Jobsheet 10</span>
-                        <span class="jobsheet-desc">Autentikasi & Manajemen Sesi</span>
-                    </div>
-                    <span class="arrow-icon">→</span>
-                </a>
-            </li>
-            <li class="jobsheet-item">
-                <a href="Jobsheet-11/index.html">
-                    <div class="jobsheet-info">
-                        <span class="jobsheet-title"><span class="badge">11</span>Jobsheet 11</span>
-                        <span class="jobsheet-desc">Keamanan Web Dasar</span>
-                    </div>
-                    <span class="arrow-icon">→</span>
-                </a>
-            </li>
-            <li class="jobsheet-item">
-                <a href="Jobsheet-12/index.html">
-                    <div class="jobsheet-info">
-                        <span class="jobsheet-title"><span class="badge">12</span>Jobsheet 12</span>
-                        <span class="jobsheet-desc">Integrasi Modul Peminjaman</span>
-                    </div>
-                    <span class="arrow-icon">→</span>
-                </a>
-            </li>
-            <li class="jobsheet-item">
-                <a href="Jobsheet-13/index.html">
-                    <div class="jobsheet-info">
-                        <span class="jobsheet-title"><span class="badge">13</span>Jobsheet 13</span>
-                        <span class="jobsheet-desc">Deployment & Dokumentasi (SIMPUS-Mini)</span>
-                    </div>
-                    <span class="arrow-icon">→</span>
-                </a>
-            </li>
+            <?php foreach ($jobsheets as $item): ?>
+                <li class="jobsheet-item">
+                    <a href="<?= htmlspecialchars($item['url']) ?>">
+                        <div class="jobsheet-info">
+                            <span class="jobsheet-title">
+                                <span class="badge"><?= htmlspecialchars($item['no']) ?></span>
+                                <?= htmlspecialchars($item['title']) ?>
+                            </span>
+                            <span class="jobsheet-desc"><?= htmlspecialchars($item['desc']) ?></span>
+                        </div>
+                        <span class="arrow-icon">→</span>
+                    </a>
+                </li>
+            <?php endforeach; ?>
         </ul>
     </main>
 
