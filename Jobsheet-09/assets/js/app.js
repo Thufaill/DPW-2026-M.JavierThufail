@@ -8,25 +8,14 @@
 // =========================================================
 
 function initHapusConfirm() {
-
-    document.addEventListener("click", function (e) {
-
-        const button = e.target.closest(".btn-hapus");
-
-        if (!button) {
-            return;
-        }
-
-        const yakin = confirm(
-            "Yakin ingin menghapus data ini?"
-        );
-
-        if (!yakin) {
+    document.addEventListener("submit", function (e) {
+        const form = e.target.closest(".form-hapus");
+        if (!form) return;
+        
+        if (!confirm("Yakin ingin menghapus data ini?")) {
             e.preventDefault();
         }
-
     });
-
 }
 
 

@@ -1,43 +1,30 @@
 <?php
+// Mencegah akses langsung via URL (hanya menerima POST)
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    http_response_code(405);
+    header('Allow: POST');
+    exit('Metode tidak diizinkan.');
+}
 
 session_start();
-
 require __DIR__ . '/../includes/koneksi.php';
 
-$id = $_GET['id'] ?? '';
+// Validasi input ID agar dipastikan berupa integer
+$id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
 
-if ($id === '') {
-
+if (!$id) {
+    $_SESSION['flash'] = ['type' => 'error', 'pesan' => 'ID obat tidak valid.'];
     header('Location: list.php');
     exit;
 }
 
-
 try {
-
-    $stmt = $pdo->prepare("
-        DELETE FROM obat
-        WHERE id = :id
-    ");
-
-    $stmt->execute([
-        'id' => $id
-    ]);
-
-
-    $_SESSION['flash'] = [
-        'type' => 'success',
-        'pesan' => 'Obat berhasil dihapus.'
-    ];
-
+    $stmt = $pdo->prepare("DELETE FROM obat WHERE id = :id");
+    $stmt->execute(['id' => $id]);
+    $_SESSION['flash'] = ['type' => 'success', 'pesan' => 'Obat berhasil dihapus.'];
 } catch (PDOException $e) {
-
-    $_SESSION['flash'] = [
-        'type' => 'error',
-        'pesan' => 'Obat tidak dapat dihapus karena sudah digunakan dalam transaksi.'
-    ];
+    $_SESSION['flash'] = ['type' => 'error', 'pesan' => 'Obat tidak dapat dihapus karena berelasi dengan transaksi.'];
 }
-
 
 header('Location: list.php');
 exit;
