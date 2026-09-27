@@ -370,6 +370,21 @@ function initFlashMessage() {
 
 }
 
+// Tambahkan fungsi ini di app.js
+function initEditConfirm() {
+    // Mendeteksi pengiriman form yang memiliki action ke proses_edit.php
+    const editForms = document.querySelectorAll('form[action="proses_edit.php"]');
+    
+    editForms.forEach(form => {
+        form.addEventListener('submit', function (e) {
+            const yakin = confirm("Apakah kamu yakin ingin menyimpan perubahan data ini?");
+            if (!yakin) {
+                e.preventDefault(); // Batalkan penyimpanan jika pilih Cancel
+            }
+        });
+    });
+}
+
 
 // =========================================================
 // INISIALISASI
@@ -392,6 +407,8 @@ document.addEventListener(
         initValidasiPenjualan();
 
         initFlashMessage();
+
+        initEditConfirm(); // Panggil fungsi konfirmasi edit
 
     }
 );
