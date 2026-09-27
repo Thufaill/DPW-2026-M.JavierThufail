@@ -6,7 +6,7 @@ include __DIR__ . '/../includes/header.php';
 // Menangkap parameter dari URL untuk pencarian dan pagination
 $q = trim($_GET['q'] ?? '');
 $halaman = max(1, (int) ($_GET['halaman'] ?? 1));
-$perHalaman = 5; // Batas data per halaman
+$perHalaman = 5;
 
 // Menghitung total data dengan filter pencarian
 $hitung = $pdo->prepare("
@@ -59,29 +59,29 @@ $obat = $stmt->fetchAll();
     <div class="card-header">
         <div>
             <h3>Daftar Obat</h3>
-            <span class="card-description">
-                Total <?php echo $totalData; ?> obat terdaftar (Halaman <?php echo $halaman; ?> dari <?php echo $totalHalaman; ?>)
-            </span>
+            <span class="card-description"><?php echo $totalData; ?> obat terdaftar</span>
         </div>
-        <!-- Search diubah menjadi form GET, mempertahankan tampilan asli -->
-        <div class="search-box">
-            <form method="get" action="list.php" style="display: flex; gap: 5px; width: 100%; align-items: center; margin: 0;">
-                <input type="text" id="search-input" name="q" value="<?php echo htmlspecialchars($q); ?>" placeholder="Cari obat..." style="border: none; outline: none; background: transparent; width: 100%; font-size: 12px; color: #344054;">
-                <button type="submit" style="background: none; border: none; padding: 0; color: #a3acb8; font-size: 14px; cursor: pointer;">🔍</button>
-            </form>
-        </div>
+        
+        <!-- Form Pencarian dibungkus dengan benar agar tidak merusak Flexbox -->
+        <form method="get" action="list.php" style="margin: 0; padding: 0;">
+            <div class="search-box">
+                <span style="font-size: 13px;">🔍</span>
+                <input type="text" name="q" value="<?php echo htmlspecialchars($q); ?>" placeholder="Cari obat..." autocomplete="off">
+            </div>
+        </form>
     </div>
+    
     <div class="table-responsive">
         <table>
             <thead>
                 <tr>
-                    <th>No</th>
-                    <th>Kode</th>
-                    <th>Nama Obat</th>
-                    <th>Kategori</th>
-                    <th>Stok</th>
-                    <th>Harga Jual</th>
-                    <th>Aksi</th>
+                    <th>NO</th>
+                    <th>KODE</th>
+                    <th>NAMA OBAT</th>
+                    <th>KATEGORI</th>
+                    <th>STOK</th>
+                    <th>HARGA JUAL</th>
+                    <th>AKSI</th>
                 </tr>
             </thead>
             <tbody>
@@ -120,10 +120,10 @@ $obat = $stmt->fetchAll();
                             <div class="action-buttons">
                                 <a href="edit.php?id=<?php echo $item['id']; ?>" class="btn-action edit">Edit</a>
                                 
-                                <!-- Tombol hapus diubah menjadi form POST namun tampilannya persis sama -->
+                                <!-- Tombol Hapus ditata ulang untuk menghapus border bawaan button HTML -->
                                 <form class="form-hapus-inline" method="post" action="hapus.php" style="display: inline-block; margin: 0; padding: 0;">
                                     <input type="hidden" name="id" value="<?php echo $item['id']; ?>">
-                                    <button type="submit" class="btn-action delete btn-hapus" style="border: none; cursor: pointer; font-family: inherit;">Hapus</button>
+                                    <button type="submit" class="btn-action delete btn-hapus" style="border: none; outline: none; cursor: pointer; font-family: inherit;">Hapus</button>
                                 </form>
                             </div>
                         </td>
@@ -134,13 +134,12 @@ $obat = $stmt->fetchAll();
         </table>
     </div>
 
-    <!-- UI Pagination minimalis menyesuaikan card -->
+    <!-- UI Pagination disesuaikan agar elegan dan senada dengan tema hijau SIAFARMA -->
     <?php if ($totalHalaman > 1): ?>
-    <div style="padding: 15px 22px; display: flex; gap: 5px; border-top: 1px solid #edf2f1; justify-content: flex-end;">
+    <div style="padding: 18px 22px; display: flex; gap: 8px; justify-content: flex-end; border-top: 1px solid #edf2f1;">
         <?php for ($i = 1; $i <= $totalHalaman; $i++): ?>
             <a href="?q=<?php echo urlencode($q); ?>&halaman=<?php echo $i; ?>" 
-               style="padding: 5px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; text-decoration: none; 
-                      <?php echo $i === $halaman ? 'background: #18a77a; color: white;' : 'background: #f0f5f4; color: #607080;'; ?>">
+               style="padding: 6px 14px; border-radius: 7px; font-size: 12px; font-weight: 600; text-decoration: none; transition: 0.2s; border: 1px solid <?php echo $i === $halaman ? '#18a77a' : '#dfe8e5'; ?>; <?php echo $i === $halaman ? 'background: #18a77a; color: white;' : 'background: #fbfdfc; color: #68778d;'; ?>">
                 <?php echo $i; ?>
             </a>
         <?php endfor; ?>
