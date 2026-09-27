@@ -61,13 +61,13 @@ $jobsheets = [
         'nomor' => '09',
         'judul' => 'Jobsheet 09',
         'deskripsi' => 'CRUD Penuh',
-        'link' => 'Jobsheet-09/index.html'
+        'link' => 'Jobsheet-09/index.php'
     ],
     [
         'nomor' => '10',
         'judul' => 'Jobsheet 10',
         'deskripsi' => 'Autentikasi & Manajemen Sesi',
-        'link' => 'Jobsheet-10/index.html'
+        'link' => 'Jobsheet-10/index.php'
     ],
     [
         'nomor' => '11',
