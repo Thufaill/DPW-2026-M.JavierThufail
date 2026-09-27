@@ -4,16 +4,16 @@
 
 
 // =========================================================
-// KONFIRMASI HAPUS
+// KONFIRMASI HAPUS (Diperbarui untuk Form POST)
 // =========================================================
-
 function initHapusConfirm() {
     document.addEventListener("submit", function (e) {
-        const form = e.target.closest(".form-hapus");
-        if (!form) return;
-        
-        if (!confirm("Yakin ingin menghapus data ini?")) {
-            e.preventDefault();
+        // Cek apakah form yang disubmit memiliki class form-hapus-inline
+        if (e.target && e.target.classList.contains("form-hapus-inline")) {
+            const yakin = confirm("Yakin ingin menghapus data ini?");
+            if (!yakin) {
+                e.preventDefault(); // Batalkan penghapusan jika klik Cancel
+            }
         }
     });
 }
