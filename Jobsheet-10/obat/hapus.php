@@ -9,6 +9,16 @@ session_start();
 require __DIR__ . '/../includes/auth.php';
 require __DIR__ . '/../includes/koneksi.php';
 
+// TAMBAHAN LATIHAN 1: Guard Clause Role-Based Access Control
+if ($_SESSION['user_role'] !== 'admin') {
+    $_SESSION['flash'] = [
+        'type' => 'error', 
+        'pesan' => 'Akses ditolak. Hanya Administrator yang diizinkan menghapus data.'
+    ];
+    header('Location: list.php');
+    exit;
+}
+
 // Ambil ID dari form POST
 $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
 
