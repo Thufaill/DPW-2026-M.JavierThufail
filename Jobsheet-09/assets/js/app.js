@@ -7,17 +7,28 @@
 // KONFIRMASI HAPUS
 // =========================================================
 
-// Mengganti deteksi 'click' pada tombol menjadi 'submit' pada form[cite: 4]
 function initHapusConfirm() {
-    document.addEventListener("submit", function (e) {
-        const form = e.target.closest(".form-hapus");
-        if (!form) return;
-        
-        if (!confirm("Yakin ingin menghapus data ini?")) {
+
+    document.addEventListener("click", function (e) {
+
+        const button = e.target.closest(".btn-hapus");
+
+        if (!button) {
+            return;
+        }
+
+        const yakin = confirm(
+            "Yakin ingin menghapus data ini?"
+        );
+
+        if (!yakin) {
             e.preventDefault();
         }
+
     });
+
 }
+
 
 // =========================================================
 // PENCARIAN TABEL
