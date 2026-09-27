@@ -1,161 +1,149 @@
 ## Ide Latihan Tambahan (Opsional)
 
-1. **Tambah konfirmasi ekstra sebelum Update** — bandingkan dengan
-   Delete yang sudah punya `confirm()`; apakah Update juga butuh
-   konfirmasi serupa? Pertimbangkan kapan konfirmasi tambahan
-   benar-benar diperlukan (ingat: Update tidak destruktif seperti
-   Delete, data lama masih "terlihat" sebelum diubah).
-   **Jawabanya:**
+1. **Terapkan kontrol akses berbasis `role`** — sesuai catatan di
+   [README.md](../README.md) jobsheet ini yang menyebutnya sebagai
+   tugas mandiri: buat aturan misalnya hanya `role === 'admin'` yang
+   boleh mengakses `anggota/hapus.php`, sementara `'petugas'` biasa
+   hanya boleh melihat dan menambah data. Petunjuk: kamu perlu
+   menambah pengecekan baru **setelah** `require auth.php`, memeriksa
+   `$_SESSION['role']`.
+   **Jawaban:**
     ```bash
-    // Tambahkan fungsi ini di app.js
-        function initEditConfirm() {
-            // Mendeteksi pengiriman form yang memiliki action ke proses_edit.php
-            const editForms = document.querySelectorAll('form[action="proses_edit.php"]');
-            
-            editForms.forEach(form => {
-                form.addEventListener('submit', function (e) {
-                    const yakin = confirm("Apakah kamu yakin ingin menyimpan perubahan data ini?");
-                    if (!yakin) {
-                        e.preventDefault(); // Batalkan penyimpanan jika pilih Cancel
-                    }
-                });
-            });
+           if ($_SESSION['user_role'] !== 'admin') {
+            $_SESSION['flash'] = [
+                'type' => 'error', 
+                'pesan' => 'Akses ditolak. Hanya Administrator yang diizinkan menghapus data.'
+            ];
+            header('Location: list.php');
+            exit;
         }
     ```  
-    Outputnya:  
-    ![alt text](img/L1.png)
-
-2. **Ubah jumlah baris per halaman** — ganti `$perPage = 5;` menjadi
-   `10` di `buku/list.php`, amati bagaimana jumlah total halaman
-   berubah mengikuti.
-3. **Tambah pencarian di kolom lain** — misalnya perluas query di
-   [bab 5 §5.6] supaya juga mencocokkan kolom `pengarang`, bukan cuma `judul`
-   (petunjuk: gunakan `OR` di klausa `WHERE`).
-4. **Terapkan pola Update/Delete ke fitur lain** — kalau kamu menambah
-   entitas baru di proyek pribadimu nanti, coba terapkan pola CRUD
-   yang sama persis: `list.php` (Read + pagination), `tambah.php`
-   (Create), `edit.php` (Update), `hapus.php` (Delete) — pola 4 file
-   ini akan terus berulang untuk hampir semua data yang perlu dikelola.
-   **Jawaban No.2-4:**
+      Outputnya:  
+      ![alt text](img/L1.png)
+2. **Tambah "Ingat Saya" (Remember Me)** — cari tahu lewat dokumentasi
+   PHP resmi bagaimana cookie dengan masa berlaku panjang bisa dipakai
+   untuk menjaga sesi login tetap aktif meski browser ditutup (petunjuk:
+   fungsi `setcookie()`), lalu diskusikan sendiri risiko keamanannya
+   dibanding sekadar mengandalkan `$_SESSION` biasa.
+   **Jawaban:**
    ```bash
-        <?php
-        $page_title = "Data Kategori";
-        require __DIR__ . '/../includes/koneksi.php';
-        include __DIR__ . '/../includes/header.php';
+      <?php
+      session_start();
+      require __DIR__ . '/../includes/koneksi.php';
 
-        $q = trim($_GET['q'] ?? '');
-        $halaman = max(1, (int) ($_GET['halaman'] ?? 1));
-        $perHalaman = 10; // LATIHAN 2: Menampilkan 10 baris per halaman
+      if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+          $username = trim($_POST['username'] ?? '');
+          $password = $_POST['password'] ?? '';
 
-        // LATIHAN 3: Pencarian di banyak kolom menggunakan OR
-        $hitung = $pdo->prepare("
-            SELECT COUNT(*) FROM kategori 
-            WHERE nama_kategori ILIKE :kw OR deskripsi ILIKE :kw
-        ");
-        $hitung->execute(['kw' => "%$q%"]);
-        $totalData = (int) $hitung->fetchColumn();
+          if ($username === '' || $password === '') {
+              $_SESSION['flash'] = ['type' => 'error', 'pesan' => 'Username dan password wajib diisi.'];
+              header('Location: login.php');
+              exit;
+          }
 
-        $totalHalaman = max(1, (int) ceil($totalData / $perHalaman));
-        $halaman = min($halaman, $totalHalaman);
-        $offset = ($halaman - 1) * $perHalaman;
+          $stmt = $pdo->prepare("SELECT id, nama, password, role FROM users WHERE username = :username");
+          $stmt->execute(['username' => $username]);
+          $user = $stmt->fetch();
 
-        // LATIHAN 4: Menerapkan pola Read + Pagination ke entitas Kategori
-        $stmt = $pdo->prepare("
-            SELECT 
-                kategori.id, 
-                kategori.nama_kategori, 
-                kategori.deskripsi, 
-                COUNT(obat.id) AS jumlah_obat
-            FROM kategori
-            LEFT JOIN obat ON obat.kategori_id = kategori.id
-            WHERE kategori.nama_kategori ILIKE :kw OR kategori.deskripsi ILIKE :kw
-            GROUP BY kategori.id, kategori.nama_kategori, kategori.deskripsi
-            ORDER BY kategori.id DESC
-            LIMIT :limit OFFSET :offset
-        ");
-        $stmt->bindValue(':kw', "%$q%", PDO::PARAM_STR);
-        $stmt->bindValue(':limit', $perHalaman, PDO::PARAM_INT);
-        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
-        $stmt->execute();
-        $kategori = $stmt->fetchAll();
-        ?>
+          // Verifikasi hash menggunakan password_verify
+          if ($user && password_verify($password, $user['password'])) {
+              $_SESSION['user_id'] = $user['id'];
+              $_SESSION['user_nama'] = $user['nama'];
+              $_SESSION['user_role'] = $user['role'];
 
-        <div class="page-header">
-            <div>
-                <h2>Data Kategori</h2>
-                <p>Kelola kategori obat yang tersedia di apotek.</p>
-            </div>
-            <a href="tambah.php" class="btn btn-primary">+ Tambah Kategori</a>
-        </div>
-
-        <div class="card">
-            <div class="card-header">
-                <div>
-                    <h3>Daftar Kategori</h3>
-                    <span class="card-description"><?php echo $totalData; ?> kategori terdaftar</span>
-                </div>
-
-                <form method="get" action="list.php" style="margin: 0; padding: 0;">
-                    <div class="search-box">
-                        <span style="font-size: 13px;">🔍</span>
-                        <input type="text" name="q" value="<?php echo htmlspecialchars($q); ?>" placeholder="Cari nama atau deskripsi..." autocomplete="off">
-                    </div>
-                </form>
-            </div>
-
-            <div class="table-responsive">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>NO</th>
-                            <th>NAMA KATEGORI</th>
-                            <th>DESKRIPSI</th>
-                            <th>JUMLAH OBAT</th>
-                            <th>AKSI</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <?php if (empty($kategori)): ?>
-                        <tr>
-                            <td colspan="5" class="empty-data">Data kategori tidak ditemukan.</td>
-                        </tr>
-                    <?php else: ?>
-                        <?php foreach ($kategori as $index => $item): ?>
-                            <tr>
-                                <td><?php echo $offset + $index + 1; ?></td>
-                                <td><strong><?php echo htmlspecialchars($item['nama_kategori']); ?></strong></td>
-                                <td><?php echo htmlspecialchars($item['deskripsi'] ?: '-'); ?></td>
-                                <td><span class="count-badge"><?php echo $item['jumlah_obat']; ?> obat</span></td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <a href="edit.php?id=<?php echo $item['id']; ?>" class="btn-action edit">Edit</a>
-
-                                        <form class="form-hapus-inline" method="post" action="hapus.php" style="display: inline-block; margin: 0; padding: 0;">
-                                            <input type="hidden" name="id" value="<?php echo $item['id']; ?>">
-                                            <button type="submit" class="btn-action delete btn-hapus" style="border: none; outline: none; cursor: pointer; font-family: inherit;">Hapus</button>
-                                        </form>
-                                    </div>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-                    </tbody>
-                </table>
-            </div>
-
-            <?php if ($totalHalaman > 1): ?>
-            <div style="padding: 18px 22px; display: flex; gap: 8px; justify-content: flex-end; border-top: 1px solid #edf2f1;">
-                <?php for ($i = 1; $i <= $totalHalaman; $i++): ?>
-                    <a href="?q=<?php echo urlencode($q); ?>&halaman=<?php echo $i; ?>" 
-                       style="padding: 6px 14px; border-radius: 7px; font-size: 12px; font-weight: 600; text-decoration: none; border: 1px solid <?php echo $i === $halaman ? '#18a77a' : '#dfe8e5'; ?>; <?php echo $i === $halaman ? 'background: #18a77a; color: white;' : 'background: #fbfdfc; color: #68778d;'; ?>">
-                        <?php echo $i; ?>
-                    </a>
-                <?php endfor; ?>
-            </div>
-            <?php endif; ?>
-        </div>
-
-        <?php include __DIR__ . '/../includes/footer.php'; ?>
+              $_SESSION['flash'] = ['type' => 'success', 'pesan' => 'Selamat datang, ' . $user['nama']];
+              header('Location: ../index.php');
+              exit;
+          } else {
+              $_SESSION['flash'] = ['type' => 'error', 'pesan' => 'Username atau password salah.'];
+              header('Location: login.php');
+              exit;
+          }
+      }
    ```  
    Outputnya:  
-   ![alt text](img/L24.png)
+   ![alt text](img/L2.png)
+
+3. **Batasi percobaan Login yang gagal** — tambahkan penghitung
+   percobaan gagal per username (bisa disimpan sementara di
+   `$_SESSION` untuk latihan), dan tampilkan peringatan setelah
+   beberapa kali gagal berturut-turut — langkah awal mencegah serangan
+   *brute-force* menebak password.
+   **Jawaba:**  
+   ```bash
+      <?php
+      session_start();
+      require __DIR__ . '/../includes/koneksi.php';
+
+      // 1. Periksa apakah akun sedang dikunci sementara karena terlalu banyak gagal login
+      if (isset($_SESSION['lockout_time']) && time() < $_SESSION['lockout_time']) {
+          $sisa_waktu = $_SESSION['lockout_time'] - time();
+          $_SESSION['flash'] = [
+              'type' => 'error', 
+              'pesan' => "Terlalu banyak percobaan gagal. Silakan tunggu $sisa_waktu detik lagi."
+          ];
+          header('Location: login.php');
+          exit;
+      }
+
+      if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+          $username = trim($_POST['username'] ?? '');
+          $password = $_POST['password'] ?? '';
+
+          if ($username === '' || $password === '') {
+              $_SESSION['flash'] = ['type' => 'error', 'pesan' => 'Username dan password wajib diisi.'];
+              header('Location: login.php');
+              exit;
+          }
+
+          $stmt = $pdo->prepare("SELECT id, nama, password, role FROM users WHERE username = :username");
+          $stmt->execute(['username' => $username]);
+          $user = $stmt->fetch();
+
+          // 2. Cek kecocokan password
+          if ($user && password_verify($password, $user['password'])) {
+              // Jika BERHASIL: Reset hitungan gagal login dan lockout
+              unset($_SESSION['login_attempts']);
+              unset($_SESSION['lockout_time']);
+
+              $_SESSION['user_id'] = $user['id'];
+              $_SESSION['user_nama'] = $user['nama'];
+              $_SESSION['user_role'] = $user['role'];
+
+              $_SESSION['flash'] = ['type' => 'success', 'pesan' => 'Selamat datang, ' . $user['nama']];
+              header('Location: ../index.php');
+              exit;
+          } else {
+              // 3. Jika GAGAL: Tambah jumlah percobaan gagal di session
+              $_SESSION['login_attempts'] = ($_SESSION['login_attempts'] ?? 0) + 1;
+
+              // Jika sudah gagal 3 kali, kunci selama 60 detik
+              if ($_SESSION['login_attempts'] >= 3) {
+                  $_SESSION['lockout_time'] = time() + 60; 
+                  $_SESSION['flash'] = [
+                      'type' => 'error', 
+                      'pesan' => 'Akun dikunci sementara karena 3x salah password. Coba lagi dalam 60 detik.'
+                  ];
+              } else {
+                  $sisa_coba = 3 - $_SESSION['login_attempts'];
+                  $_SESSION['flash'] = [
+                      'type' => 'error', 
+                      'pesan' => "Username atau password salah. (Sisa percobaan: $sisa_coba kali)"
+                  ];
+              }
+
+              header('Location: login.php');
+              exit;
+          }
+      }
+   ```
+4. **Uji coba mematikan PostgreSQL** sesuai catatan di
+   [README.md](../README.md) jobsheet ini — coba hentikan sementara
+   layanan PostgreSQL di komputermu, lalu akses `/buku/tambah.php`
+   tanpa login — buktikan sendiri kamu tetap diarahkan ke Login
+   (bukan melihat error koneksi database), sesuai penjelasan di
+   [bab 4 §4.6]
+   **Jawaban:**
+   > Alasan utama guard clause (seperti file auth.php milikmu) harus mandiri dan bergantung pada $_SESSION—bukan database—adalah untuk mencegah kegagalan sistem (system failure) yang berisiko mengekspos halaman rahasia.
+   >
+    > Sesi PHP disimpan secara lokal di dalam memori atau direktori file server web, sehingga pengecekan status login dan hak akses bisa dilakukan secara instan. Jika server PostgreSQL mati atau mengalami gangguan koneksi, guard clause tetap berfungsi sempurna menendang akses tidak sah kembali ke halaman login. Hal ini menghemat sumber daya dan mencegah error database (Fatal Error) yang bisa saja memotong pengeksekusian script keamanan.
