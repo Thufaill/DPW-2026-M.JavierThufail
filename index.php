@@ -73,19 +73,19 @@ $jobsheets = [
         'nomor' => '11',
         'judul' => 'Jobsheet 11',
         'deskripsi' => 'Keamanan Web Dasar',
-        'link' => 'Jobsheet-11/index.html'
+        'link' => 'Jobsheet-11/index.php'
     ],
     [
         'nomor' => '12',
         'judul' => 'Jobsheet 12',
         'deskripsi' => 'Integrasi Modul Peminjaman',
-        'link' => 'Jobsheet-12/index.html'
+        'link' => 'Jobsheet-12/index.php'
     ],
     [
         'nomor' => '13',
         'judul' => 'Jobsheet 13',
         'deskripsi' => 'Deployment & Dokumentasi (SIMPUS-Mini)',
-        'link' => 'Jobsheet-13/index.html'
+        'link' => 'Jobsheet-13/index.php'
     ],
 ];
 
