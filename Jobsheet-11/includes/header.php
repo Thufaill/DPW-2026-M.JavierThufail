@@ -3,6 +3,9 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+// LAPISAN KEAMANAN TAMBAHAN: Content Security Policy (CSP) Header
+header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;");
+
 require_once __DIR__ . '/helpers.php';
 require_once __DIR__ . '/csrf.php';
 
@@ -31,12 +34,12 @@ $userInitial = $isLoggedIn ? strtoupper(substr($userName, 0, 1)) : '?';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIAFARMA <?php echo $page_title ? ' | ' . e($page_title) : ''; ?></title>
-    <link rel="stylesheet" href="<?php echo $base; ?>assets/css/style.css">
+    <link rel="stylesheet" href="<?php echo e($base); ?>assets/css/style.css">
 </head>
 <body>
 <header class="navbar">
     <div class="navbar-container">
-        <a href="<?php echo $base; ?>index.php" class="brand">
+        <a href="<?php echo e($base); ?>index.php" class="brand">
             <div class="brand-icon">💊</div>
             <div class="brand-text">
                 <h1>SIA<span>FARMA</span></h1>
@@ -45,13 +48,13 @@ $userInitial = $isLoggedIn ? strtoupper(substr($userName, 0, 1)) : '?';
         </a>
         
         <nav class="main-nav">
-            <a href="<?php echo $base; ?>index.php" class="<?php echo $page_title === 'Dashboard' ? 'active' : ''; ?>">Dashboard</a>
-            <a href="<?php echo $base; ?>obat/list.php" class="<?php echo $page_title === 'Data Obat' ? 'active' : ''; ?>">Katalog Obat</a>
+            <a href="<?php echo e($base); ?>index.php" class="<?php echo $page_title === 'Dashboard' ? 'active' : ''; ?>">Dashboard</a>
+            <a href="<?php echo e($base); ?>obat/list.php" class="<?php echo $page_title === 'Data Obat' ? 'active' : ''; ?>">Katalog Obat</a>
             
             <?php if ($isLoggedIn): ?>
-                <a href="<?php echo $base; ?>kategori/list.php" class="<?php echo $page_title === 'Data Kategori' ? 'active' : ''; ?>">Kategori</a>
-                <a href="<?php echo $base; ?>supplier/list.php" class="<?php echo $page_title === 'Data Supplier' ? 'active' : ''; ?>">Supplier</a>
-                <a href="<?php echo $base; ?>penjualan/list.php" class="<?php echo $page_title === 'Data Penjualan' ? 'active' : ''; ?>">Penjualan</a>
+                <a href="<?php echo e($base); ?>kategori/list.php" class="<?php echo $page_title === 'Data Kategori' ? 'active' : ''; ?>">Kategori</a>
+                <a href="<?php echo e($base); ?>supplier/list.php" class="<?php echo $page_title === 'Data Supplier' ? 'active' : ''; ?>">Supplier</a>
+                <a href="<?php echo e($base); ?>penjualan/list.php" class="<?php echo $page_title === 'Data Penjualan' ? 'active' : ''; ?>">Penjualan</a>
             <?php endif; ?>
         </nav>
 
@@ -63,9 +66,9 @@ $userInitial = $isLoggedIn ? strtoupper(substr($userName, 0, 1)) : '?';
                     <small><?php echo $isLoggedIn ? e($_SESSION['user_role'] ?? 'Administrator') : 'Pengunjung Publik'; ?></small>
                 </div>
                 <?php if ($isLoggedIn): ?>
-                    <a href="<?php echo $base; ?>auth/logout.php" style="margin-left: 10px; font-size: 12px; color: #d24b4b; text-decoration: none; font-weight: bold;">Logout</a>
+                    <a href="<?php echo e($base); ?>auth/logout.php" style="margin-left: 10px; font-size: 12px; color: #d24b4b; text-decoration: none; font-weight: bold;">Logout</a>
                 <?php else: ?>
-                    <a href="<?php echo $base; ?>auth/login.php" style="margin-left: 10px; font-size: 12px; color: #18a77a; text-decoration: none; font-weight: bold;">Login</a>
+                    <a href="<?php echo e($base); ?>auth/login.php" style="margin-left: 10px; font-size: 12px; color: #18a77a; text-decoration: none; font-weight: bold;">Login</a>
                 <?php endif; ?>
             </div>
         </div>
