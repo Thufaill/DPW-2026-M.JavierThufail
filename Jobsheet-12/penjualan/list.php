@@ -9,6 +9,7 @@ $stmt = $pdo->query("
         penjualan.id,
         penjualan.tanggal,
         penjualan.total,
+        penjualan.status,
         COUNT(detail_penjualan.id) AS jumlah_item
     FROM penjualan
     LEFT JOIN detail_penjualan 
@@ -16,7 +17,8 @@ $stmt = $pdo->query("
     GROUP BY 
         penjualan.id,
         penjualan.tanggal,
-        penjualan.total
+        penjualan.total,
+        penjualan.status
     ORDER BY penjualan.id DESC
 ");
 $penjualan = $stmt->fetchAll();
@@ -73,7 +75,9 @@ $penjualan = $stmt->fetchAll();
                             <strong class="price">Rp <?php echo number_format($item['total'], 0, ',', '.'); ?></strong>
                         </td>
                         <td>
-                            <span class="status-success">Selesai</span>
+                            <span class="<?php echo ($item['status'] ?? 'selesai') === 'selesai' ? 'status-success' : 'stock-empty'; ?>">
+                                <?php echo e(ucfirst($item['status'] ?? 'Selesai')); ?>
+                            </span>
                         </td>
                     </tr>
                 <?php endforeach; ?>

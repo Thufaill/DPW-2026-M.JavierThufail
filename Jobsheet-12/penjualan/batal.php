@@ -10,9 +10,7 @@ $sql = "
     SELECT p.id, p.tanggal, p.total, u.nama AS nama_kasir
     FROM penjualan p
     LEFT JOIN users u ON u.id = p.user_id
-    SELECT p.id, p.tanggal, p.total, u.nama AS nama_kasir
-    FROM penjualan p
-    LEFT JOIN users u ON u.id = p.user_id
+    WHERE p.status = 'selesai'
 ";
 
 if ($keyword !== '') {
