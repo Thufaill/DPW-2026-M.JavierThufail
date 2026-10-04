@@ -10,7 +10,6 @@ $stmt = $pdo->query("
         p.id AS invoice_id,
         p.tanggal,
         p.total,
-        p.status,
         u.nama AS nama_kasir,
         o.nama_obat,
         dp.jumlah,

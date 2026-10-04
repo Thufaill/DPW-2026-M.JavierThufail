@@ -7,7 +7,7 @@ include __DIR__ . '/includes/header.php';
 $totalObat      = $pdo->query("SELECT COUNT(*) FROM obat")->fetchColumn();
 $totalKategori  = $pdo->query("SELECT COUNT(*) FROM kategori")->fetchColumn();
 $totalSupplier  = $pdo->query("SELECT COUNT(*) FROM supplier")->fetchColumn();
-$totalPenjualan = $pdo->query("SELECT COUNT(*) FROM penjualan WHERE status = 'selesai'")->fetchColumn();
+$totalPenjualan = $pdo->query("SELECT COUNT(*) FROM penjualan")->fetchColumn();
 
 // Mengambil 5 obat dengan stok terendah
 $stokRendah = $pdo->query("SELECT nama_obat, stok, satuan FROM obat ORDER BY stok ASC LIMIT 5")->fetchAll(PDO::FETCH_ASSOC);
